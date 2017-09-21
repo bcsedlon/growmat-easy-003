@@ -958,14 +958,14 @@ MENU_LIST const submenu_list4[] = { &cyclerMode_item, &cyclerOnMin_item, &cycler
 MENU_ITEM menu_submenu4 = { {"CYCLER->"},  ITEM_MENU,  MENU_SIZE(submenu_list4),  MENU_TARGET(&submenu_list4) };
 
 // Alarms
-MENU_VALUE tempHighAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempHighNightAlarm), TEMPHIGHALARM_ADDR };
+MENU_VALUE tempHighAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempHighAlarm), TEMPHIGHALARM_ADDR };
 MENU_ITEM tempHighAlarm_item   ={ {"TEMP HIGH   [C]"},    ITEM_VALUE,  0,        MENU_TARGET(&tempHighAlarm_value) };
-MENU_VALUE tempLowAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempLowNightAlarm), TEMPLOWALARM_ADDR };
+MENU_VALUE tempLowAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempLowAlarm), TEMPLOWALARM_ADDR };
 MENU_ITEM tempLowAlarm_item   ={ {"TEMP LOW    [C]"},    ITEM_VALUE,  0,        MENU_TARGET(&tempLowAlarm_value) };
 
-MENU_VALUE tempHighNightAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempHighAlarm), TEMPHIGHNIGHTALARM_ADDR };
+MENU_VALUE tempHighNightAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempHighNightAlarm), TEMPHIGHNIGHTALARM_ADDR };
 MENU_ITEM tempHighNightAlarm_item   ={ {"TEMP HIGH N [C]"},    ITEM_VALUE,  0,        MENU_TARGET(&tempHighNightAlarm_value) };
-MENU_VALUE tempLowNightAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempLowAlarm), TEMPLOWNIGHTALARM_ADDR };
+MENU_VALUE tempLowNightAlarm_value={ TYPE_FLOAT_10, 99,    -99,    MENU_TARGET(&tempLowNightAlarm), TEMPLOWNIGHTALARM_ADDR };
 MENU_ITEM tempLowNightAlarm_item   ={ {"TEMP LOW  N [C]"},    ITEM_VALUE,  0,        MENU_TARGET(&tempLowNightAlarm_value) };
 
 //                               TYPE             MAX    MIN    TARGET
@@ -1865,7 +1865,8 @@ void loop() {
 #endif
 		}
 
-		if(lightAuto) {
+		if(lightControl) {
+		//if(lightAuto) {
 			lightOnDuration++;
 			lightOffDuration = 0;
 		}
@@ -2122,7 +2123,8 @@ void loop() {
 	//////////////////////////////////
 	float tempHigh, tempLow;
 
-	if(lightAuto) {
+	//if(lightAuto) {
+	if(lightControl) {
 		//day - light
 		tempHigh = tempHighAlarm;
 		tempLow = tempLowAlarm;
@@ -2714,7 +2716,8 @@ void uiScreen() {
 		}
 		else if(uiPage == 2) {
 			lcd.setCursor(0, 0);
-			if(lightAuto) {
+			//if(lightAuto) {
+			if(lightControl) {
 				lcd.print(F(" DAY *  "));
 				uiLcdPrintSpaces8();
 			}
